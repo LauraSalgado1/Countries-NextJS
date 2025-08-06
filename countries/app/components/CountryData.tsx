@@ -8,7 +8,7 @@ export default function CountryData() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [countryIndex, setCountryIndex] = useState(1);
+  const [countryIndex, setCountryIndex] = useState(0);
 
   const handleUpdateCountry = (index: number) => {
     setCountryIndex(index);
@@ -28,7 +28,6 @@ export default function CountryData() {
         setData(result[0]);
       } catch (err) {
         console.log(err);
-        setError(err);
       } finally {
         setLoading(false);
       }
@@ -37,7 +36,6 @@ export default function CountryData() {
   }, [countryIndex]);
 
   if (loading) return <p>Loading data...</p>;
-  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <div>
@@ -47,7 +45,7 @@ export default function CountryData() {
         </button>
       ))}
 
-      <div>{data.name.common}</div>
+      <div>{data?.name?.common}</div>
 
       {/* {Object.keys(data.currencies).map((key) => (
         <div key={key}>
